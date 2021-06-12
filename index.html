@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>ドラッグアンドドロップ</title>
+        <!-- jQuery UI-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!--CSS & js-->
+        <link rel="stylesheet" href="./src/style.css" />
+        <script type="text/javascript" src="./src/index.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="navbar-header">
+                <h1>header</h1>
+            </div>
+            <div class="drop_area"></div>
+            <button type="button" id="appendBlue">
+                <div class="b"></div>
+                <p>青</p>
+            </button>
+            <button type="button" id="appendRed">
+                <div class="r"></div>
+                <p>赤</p>
+            </button>
+            <button type="button" id="appendImage">
+                <img src="img/test.png" class="img">
+                <p>画像</p>
+            </button>
+            <button type="button" id="deleteSelectedElement">削除</button>
+            <button type="button" id="rotateSelectedElement">回転</button>
+        </div>
+    </body>
+</html>
+

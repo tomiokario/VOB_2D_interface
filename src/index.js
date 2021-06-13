@@ -1,3 +1,4 @@
+/* MAIN */
 // ページ読み込み時に実行
 window.onload = function () {
     // ボタンの有効化
@@ -6,9 +7,14 @@ window.onload = function () {
     $(document).on('click', function(e) {
         if(!$(e.target).is('.move') && !$(e.target).is('#rotateSelectedElement')) {
             $(".move").removeClass("selected");
+            selected_elements = [];
+            console.log(selected_elements);
         }
     });
 };
+
+/* field */
+var selected_elements = [];  // 選択中の対象のidを格納する配列
 
 /* methods */
 
@@ -36,6 +42,8 @@ function enableButton() {
     // 選択要素の削除ボタン
     $("#deleteSelectedElement").click(function () {
         $('.selected').remove();
+        selected_elements = [];
+        console.log(selected_elements);
     });
     // 選択要素の回転ボタン
     $("#rotateSelectedElement").click(function () {
@@ -58,10 +66,21 @@ function update(ele){
     });
     // 選択可能にする
     ele.click(function(){
-        ele.toggleClass('selected');
+        if( ele.hasClass('selected') ){
+            ele.removeClass('selected');
+            selected_elements.push(ele);
+            // selected_elements配列から，eleのみを削除する
+            selected_elements = selected_elements.filter(n => n !== ele);
+            console.log(selected_elements);
+        }
+        else{
+            ele.addClass('selected');
+            selected_elements.push(ele);
+            console.log(selected_elements);
+        }
     });
-
 }
+
 
 
 

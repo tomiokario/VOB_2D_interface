@@ -1,3 +1,4 @@
+/* MAIN */
 // ページ読み込み時に実行
 window.onload = function () {
     // ボタンの有効化
@@ -6,9 +7,13 @@ window.onload = function () {
     $(document).on('click', function(e) {
         if(!$(e.target).is('.move') && !$(e.target).is('#rotateSelectedElement')) {
             $(".move").removeClass("selected");
+            selected_elements = [];
         }
     });
 };
+
+/* field */
+var selected_elements = [];  // 選択中の対象のidを格納する配列
 
 /* methods */
 
@@ -36,14 +41,19 @@ function enableButton() {
     // 選択要素の削除ボタン
     $("#deleteSelectedElement").click(function () {
         $('.selected').remove();
+        selected_elements = [];
     });
     // 選択要素の回転ボタン
     $("#rotateSelectedElement").click(function () {
-        var mat = $(".selected").css("transform");  // matrixを取得
-        var vec = matrix2vec(mat);                  // matrixを行列に変換
-        vec = rotate2D(vec, 45);                    // 行列を45度回転
-        mat = vec2matrix(vec);                      // 行列をmatrixに戻す
-        $('.selected').css('transform',mat);        // 回転
+        // 選択中の全ての要素に対して45度の回転を適用
+        selected_elements.forEach(function( target_element ) {
+            var mat = target_element.css("transform");  // matrixを取得
+            var vec = matrix2vec(mat);                  // matrixを行列に変換
+            vec = rotate2D(vec, 45);                    // 行列を45度回転
+            mat = vec2matrix(vec);                      // 行列をmatrixに戻す
+            target_element.css('transform',mat);        // 回転
+
+        });
     });
 }
 
@@ -58,10 +68,18 @@ function update(ele){
     });
     // 選択可能にする
     ele.click(function(){
-        ele.toggleClass('selected');
+        if( ele.hasClass('selected') ){
+            ele.removeClass('selected');
+            selected_elements.push(ele);
+            selected_elements = selected_elements.filter(n => n !== ele);   // selected_elements配列から，eleのみを削除する
+        }
+        else{
+            ele.addClass('selected');
+            selected_elements.push(ele);
+        }
     });
-
 }
+
 
 
 

@@ -3,17 +3,18 @@
 window.onload = function () {
     // ボタンの有効化
     enableButton();
-    // .move要素以外がクリックされたら選択状態を解除
+    // 関係のない箇所がクリックされたとき，要素の選択状態を解除
     $(document).on('click', function(e) {
         if(!$(e.target).is('.move') && !$(e.target).is('#rotateSelectedElement')) {
-            $(".move").removeClass("selected");
-            selected_elements = [];
+            // .move要素が押されたときとrotateボタンが押されたとき以外の場合
+            $(".move").removeClass("selected"); // 全ての.move要素から.selectedを外す
+            selected_elements = [];             // 選択中の要素を格納する配列を初期化
         }
     });
 };
 
 /* field */
-var selected_elements = [];  // 選択中の対象のidを格納する配列
+var selected_elements = [];  // 選択中の要素を格納する配列
 
 /* methods */
 
@@ -69,13 +70,12 @@ function update(ele){
     // 選択可能にする
     ele.click(function(){
         if( ele.hasClass('selected') ){
-            ele.removeClass('selected');
-            selected_elements.push(ele);
+            ele.removeClass('selected');    // 要素からselectedクラスを削除
             selected_elements = selected_elements.filter(n => n !== ele);   // selected_elements配列から，eleのみを削除する
         }
         else{
-            ele.addClass('selected');
-            selected_elements.push(ele);
+            ele.addClass('selected');       // 要素にselectedクラスを追加
+            selected_elements.push(ele);    // 配列に追加
         }
     });
 }
